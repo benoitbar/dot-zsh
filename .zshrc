@@ -48,7 +48,7 @@ HIST_STAMPS="yyyy-mm-dd"
 ZSH_CUSTOM=$HOME/.zsh
 
 # Set ZSH_CACHE_DIR to the path where cache files should be created
-ZSH_CACHE_DIR=$ZSH_CUSTOM/cache
+ZSH_CACHE_DIR=$HOME/.zsh-cache
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
   mkdir $ZSH_CACHE_DIR
 fi
