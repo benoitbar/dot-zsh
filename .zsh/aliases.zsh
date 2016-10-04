@@ -2,9 +2,10 @@
 alias ls='ls --color'
 alias l='ls'
 alias ll='ls -l -h'
-alias la='ls -a'
-alias llt='ll -t'
-alias llth='ll -t | head'
-alias lla='ll -a'
+alias la='ll -a'
 
-alias less='less -r'
+#grep aliases
+alias grep='grep --colors=always'
+
+# swap aliases
+alias purgeswap='sudo swapoff -a && sudo swapon -a'
