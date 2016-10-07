@@ -63,6 +63,7 @@ DEFAULT_USER="ben"
 
 ZSH_TMUX_AUTOSTART = true
 
+test -f ~/.zshrc-local && source ~/.zshrc-local
 
 source $ZSH/oh-my-zsh.sh
 
