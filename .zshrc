@@ -63,6 +63,8 @@ DEFAULT_USER="ben"
 
 ZSH_TMUX_AUTOSTART=true
 
+BULLETTRAIN_VIRTUALENV_PREFIX="⌘"
+
 test -f ~/.zshrc-local && source ~/.zshrc-local
 
 source $ZSH/oh-my-zsh.sh
