@@ -5,7 +5,7 @@ alias ll='ls -l -h'
 alias la='ll -a'
 
 #grep aliases
-alias grep='grep --colors=always'
+alias grep='grep'
 
 # swap aliases
 alias purgeswap='sudo swapoff -a && sudo swapon -a'
