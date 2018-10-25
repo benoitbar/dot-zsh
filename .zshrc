@@ -72,3 +72,5 @@ source $ZSH/oh-my-zsh.sh
 # Put this configuration in .zsh/00-local.zsh file
 # export DEBEMAIL="..."
 # export DEBFULLNAME="..."
+
+export PATH="/usr/local/p/versions/python:$PATH"
