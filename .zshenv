@@ -7,6 +7,8 @@ if [ -n "$DESKTOP_SESSION" ];then
   export SSH_AUTH_SOCK
 fi
 
-# virtualenvwrapper zsh plugin
-export WORKON_HOME='~/.virtualenvs'
-
+# virtualenvwrapper
+export WORKON_HOME=$HOME/.virtualenvs
+if [[ ! -d $WORKON_HOME ]]; then
+  mkdir $WORKON_HOME
+fi
