@@ -9,3 +9,5 @@ alias grep='grep'
 
 # swap aliases
 alias purgeswap='sudo swapoff -a && sudo swapon -a'
+
+alias updatemirrorlist='sudo reflector --latest 200 --protocol https --sort rate --save /etc/pacman.d/mirrorlist'
