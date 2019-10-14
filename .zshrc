@@ -54,20 +54,20 @@ if [[ ! -d $ZSH_CACHE_DIR ]]; then
 fi
 
 # Lazy load nvm
-NVM_LAZY_LOAD=true
+export NVM_LAZY_LOAD=true
 
 # Don't autoload node
-NVM_NO_USE=true
+# export NVM_NO_USE=true
 
 # If it's enabled, when you cd into a directory with an .nvmrc file,
 # zsh-nvm will automatically load or install the required node version in .nvmrc.
-NVM_AUTO_USE=true
+export NVM_AUTO_USE=true
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-nvm git tmux)
+plugins=(git nvm)
 
 DEFAULT_USER="ben"
 
@@ -76,9 +76,6 @@ ZSH_TMUX_AUTOSTART=true
 BULLETTRAIN_VIRTUALENV_PREFIX="⌘"
 
 test -f ~/.zshrc-local && source ~/.zshrc-local
-
-# custom plugins are not source automatilcaly ?
-source $ZSH_CUSTOM/plugins/zsh-nvm/zsh-nvm.plugin.zsh
 
 source $ZSH/oh-my-zsh.sh
 
