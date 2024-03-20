@@ -7,8 +7,5 @@ if [ -n "$DESKTOP_SESSION" ];then
   export SSH_AUTH_SOCK
 fi
 
-# virtualenvwrapper
-export WORKON_HOME=$HOME/.virtualenvs
-if [[ ! -d $WORKON_HOME ]]; then
-  mkdir $WORKON_HOME
-fi
+# added by Nix installer
+if [ -e /home/benben/.nix-profile/etc/profile.d/nix.sh ]; then . /home/benben/.nix-profile/etc/profile.d/nix.sh; fi

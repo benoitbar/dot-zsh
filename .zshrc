@@ -53,8 +53,9 @@ if [[ ! -d $ZSH_CACHE_DIR ]]; then
   mkdir $ZSH_CACHE_DIR
 fi
 
+## configure zsh-nvm
 # Lazy load nvm
-export NVM_LAZY_LOAD=true
+# export NVM_LAZY_LOAD=true
 
 # Don't autoload node
 # export NVM_NO_USE=true
@@ -62,25 +63,61 @@ export NVM_LAZY_LOAD=true
 # If it's enabled, when you cd into a directory with an .nvmrc file,
 # zsh-nvm will automatically load or install the required node version in .nvmrc.
 export NVM_AUTO_USE=true
+##
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git nvm)
+plugins=(zsh-nvm git npm pip python docker) # see ~/.zshrc-local for plugins override
 
-DEFAULT_USER="ben"
+DEFAULT_USER="benben"
 
-ZSH_TMUX_AUTOSTART=true
+#ZSH_TMUX_AUTOSTART=true
 
+## configure bullettrain
+prompt_npm() {
+  local npm_prompt
+  if type npm >/dev/null 2>&1; then
+    prompt_segment $BULLETTRAIN_NVM_BG $BULLETTRAIN_NVM_FG "/ $(npm --version)"
+  fi
+}
+
+BULLETTRAIN_PROMPT_ORDER=(
+    time
+    status
+    custom
+    context
+    dir
+    screen
+#    perl
+#    ruby
+    virtualenv
+    nvm
+    npm
+#    aws
+#    go
+#    rust
+#    elixir
+    git
+#    hg
+    cmd_exec_time
+)
+BULLETTRAIN_CONTEXT_DEFAULT_USER="benben"
 BULLETTRAIN_VIRTUALENV_PREFIX="⌘"
-
-test -f ~/.zshrc-local && source ~/.zshrc-local
-
-source $ZSH/oh-my-zsh.sh
+##
 
 # Put this configuration in .zsh/00-local.zsh file
 # export DEBEMAIL="..."
 # export DEBFULLNAME="..."
 
-export PATH="/usr/local/p/versions/python:$PATH"
+#export PATH="/usr/local/p/versions/python:$PATH"
+
+## configure pyenv
+#export PYENV_ROOT="$HOME/.pyenv"
+#export PATH="$PYENV_ROOT/bin:$PATH"
+#eval "$(pyenv init --path)"
+##
+
+test -f ~/.zshrc-local && source ~/.zshrc-local
+source $ZSH/oh-my-zsh.sh
