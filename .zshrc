@@ -92,6 +92,7 @@ BULLETTRAIN_PROMPT_ORDER=(
 #    ruby
     virtualenv
     nixshell
+    nvm
     npm
 #    aws
 #    go
