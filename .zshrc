@@ -57,13 +57,11 @@ if [[ ! -d $ZSH_CACHE_DIR ]]; then
   mkdir $ZSH_CACHE_DIR
 fi
 
-ZSH_FNM_ENV_EXTRA_ARGS="--use-on-cd"
-
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-fnm git npm pip python docker) # see ~/.zshrc-local for plugins override
+plugins=(fnm git npm pip python docker) # see ~/.zshrc-local for plugins override
 
 DEFAULT_USER="benben"
 
@@ -94,7 +92,6 @@ BULLETTRAIN_PROMPT_ORDER=(
 #    ruby
     virtualenv
     nixshell
-    nvm
     npm
 #    aws
 #    go
@@ -122,3 +119,21 @@ BULLETTRAIN_VIRTUALENV_PREFIX="⌘"
 
 test -f ~/.zshrc-local && source ~/.zshrc-local
 source $ZSH/oh-my-zsh.sh
+
+## ZI
+if [[ ! -f $HOME/.zi/bin/zi.zsh ]]; then
+  print -P "%F{33}▓▒░ %F{160}Installing (%F{33}z-shell/zi%F{160})…%f"
+  command mkdir -p "$HOME/.zi" && command chmod go-rwX "$HOME/.zi"
+  command git clone -q --depth=1 --branch "main" https://github.com/z-shell/zi "$HOME/.zi/bin" && \
+    print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+    print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+source "$HOME/.zi/bin/zi.zsh"
+autoload -Uz _zi
+(( ${+_comps} )) && _comps[zi]=_zi
+# examples here -> https://wiki.zshell.dev/ecosystem/category/-annexes
+zicompinit # <- https://wiki.zshell.dev/docs/guides/commands
+
+## plugins initialization with ZI
+zi ice wait lucid atinit'ZSH_FNM_ENV_EXTRA_ARGS=--use-on-cd'
+zi light "dominik-schwabe/zsh-fnm"
