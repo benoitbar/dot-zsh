@@ -1,8 +1,12 @@
+# see https://github.com/ohmyzsh/ohmyzsh/issues/12328
+# fix bullettrain  git prompt bug
+zstyle ':omz:alpha:lib:git' async-prompt no
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/usr/share/oh-my-zsh/
+ZSH=/usr/share/oh-my-zsh/
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -53,23 +57,13 @@ if [[ ! -d $ZSH_CACHE_DIR ]]; then
   mkdir $ZSH_CACHE_DIR
 fi
 
-## configure zsh-nvm
-# Lazy load nvm
-# export NVM_LAZY_LOAD=true
-
-# Don't autoload node
-# export NVM_NO_USE=true
-
-# If it's enabled, when you cd into a directory with an .nvmrc file,
-# zsh-nvm will automatically load or install the required node version in .nvmrc.
-export NVM_AUTO_USE=true
-##
+ZSH_FNM_ENV_EXTRA_ARGS="--use-on-cd"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-nvm git npm pip python docker) # see ~/.zshrc-local for plugins override
+plugins=(zsh-fnm git npm pip python docker) # see ~/.zshrc-local for plugins override
 
 DEFAULT_USER="benben"
 
@@ -83,6 +77,12 @@ prompt_npm() {
   fi
 }
 
+prompt_nixshell() {
+  if [[ ! -z ${NIX_STORE} ]]; then
+    prompt_segment red $BULLETTRAIN_CUSTOM_FG "λ"
+  fi
+}
+
 BULLETTRAIN_PROMPT_ORDER=(
     time
     status
@@ -93,6 +93,7 @@ BULLETTRAIN_PROMPT_ORDER=(
 #    perl
 #    ruby
     virtualenv
+    nixshell
     nvm
     npm
 #    aws
