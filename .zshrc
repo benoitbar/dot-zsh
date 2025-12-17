@@ -68,10 +68,17 @@ DEFAULT_USER="benben"
 #ZSH_TMUX_AUTOSTART=true
 
 ## configure bullettrain
+prompt_container() {
+  local container_prompt
+  if [[ $OS_ENV == 'container' ]]; then
+    prompt_segment blue $BULLETTRAIN_CUSTOM_FG "🐋"
+  fi
+}
+
 prompt_npm() {
   local npm_prompt
   if type npm >/dev/null 2>&1; then
-    prompt_segment $BULLETTRAIN_NVM_BG $BULLETTRAIN_NVM_FG "/ $(npm --version)"
+    prompt_segment $BULLETTRAIN_NVM_BG $BULLETTRAIN_NVM_FG "⬡ $(node --version) / $(npm --version)"
   fi
 }
 
@@ -82,6 +89,7 @@ prompt_nixshell() {
 }
 
 BULLETTRAIN_PROMPT_ORDER=(
+    container
     time
     status
     custom
@@ -92,7 +100,7 @@ BULLETTRAIN_PROMPT_ORDER=(
 #    ruby
     virtualenv
     nixshell
-    nvm
+#    nvm
     npm
 #    aws
 #    go
