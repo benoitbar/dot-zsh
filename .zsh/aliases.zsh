@@ -11,3 +11,5 @@ alias grep='grep'
 alias purgeswap='sudo swapoff -a && sudo swapon -a'
 
 alias updatemirrorlist='sudo reflector --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist'
+
+alias codium='/usr/bin/codium --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform=wayland'
