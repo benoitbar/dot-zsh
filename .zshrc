@@ -1,7 +1,3 @@
-# see https://github.com/ohmyzsh/ohmyzsh/issues/12328
-# fix bullettrain  git prompt bug
-zstyle ':omz:alpha:lib:git' async-prompt no
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -11,7 +7,7 @@ ZSH=/usr/share/oh-my-zsh/
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="bullet-train"
+#ZSH_THEME="bullet-train"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -61,70 +57,13 @@ fi
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(fnm git npm pip python docker) # see ~/.zshrc-local for plugins override
+#plugins=(git npm python docker) # see ~/.zshrc-local for plugins override
 
 DEFAULT_USER="benben"
-
-#ZSH_TMUX_AUTOSTART=true
-
-## configure bullettrain
-prompt_container() {
-  local container_prompt
-  if [[ $OS_ENV == 'container' ]]; then
-    prompt_segment blue $BULLETTRAIN_CUSTOM_FG "🐋"
-  fi
-}
-
-prompt_npm() {
-  local npm_prompt
-  if type npm >/dev/null 2>&1; then
-    prompt_segment $BULLETTRAIN_NVM_BG $BULLETTRAIN_NVM_FG "⬡ $(node --version) / $(npm --version)"
-  fi
-}
-
-prompt_nixshell() {
-  if [[ ! -z ${NIX_STORE} ]]; then
-    prompt_segment red $BULLETTRAIN_CUSTOM_FG "λ"
-  fi
-}
-
-BULLETTRAIN_PROMPT_ORDER=(
-    container
-    time
-    status
-    custom
-    context
-    dir
-    screen
-#    perl
-#    ruby
-    virtualenv
-    nixshell
-#    nvm
-    npm
-#    aws
-#    go
-#    rust
-#    elixir
-    git
-#    hg
-    cmd_exec_time
-)
-BULLETTRAIN_CONTEXT_DEFAULT_USER="benben"
-BULLETTRAIN_VIRTUALENV_PREFIX="⌘"
-##
 
 # Put this configuration in .zsh/00-local.zsh file
 # export DEBEMAIL="..."
 # export DEBFULLNAME="..."
-
-#export PATH="/usr/local/p/versions/python:$PATH"
-
-## configure pyenv
-#export PYENV_ROOT="$HOME/.pyenv"
-#export PATH="$PYENV_ROOT/bin:$PATH"
-#eval "$(pyenv init --path)"
-##
 
 test -f ~/.zshrc-local && source ~/.zshrc-local
 source $ZSH/oh-my-zsh.sh
@@ -142,7 +81,18 @@ autoload -Uz _zi
 (( ${+_comps} )) && _comps[zi]=_zi
 # examples here -> https://wiki.zshell.dev/ecosystem/category/-annexes
 zicompinit # <- https://wiki.zshell.dev/docs/guides/commands
+source "$ZSH_CUSTOM/plugins/paco-completion.zsh"
 
-## plugins initialization with ZI
-zi ice wait lucid atinit'ZSH_FNM_ENV_EXTRA_ARGS=--use-on-cd'
-zi light "dominik-schwabe/zsh-fnm"
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
+
+# https://starship.rs/
+eval "$(starship init zsh)"
+
+# pnpm
+export PNPM_HOME="$HOME/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
