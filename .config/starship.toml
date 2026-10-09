@@ -53,6 +53,7 @@ when = "test -f package.json && grep -q '\"name\": \"pnpm\"' package.json"
 command = "pnpm -v"
 format = '[[ $symbol $output ](fg:crust bg:green)]($style)'
 style = "bg:green"
+ignore_timeout = true
 
 [custom.yarn]
 symbol = ""
