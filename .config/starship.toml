@@ -62,7 +62,7 @@ style = "bg:teal"
 [custom.npm]
 disabled = true
 symbol = ""
-when = "grep -q '\"name\": \"npm\"' package.json"
+when = "test -f package.json && grep -q '\"name\": \"npm\"' package.json"
 command = "npm -v"
 format = '[[ $symbol $output ](fg:crust bg:green)]($style)'
 style = "bg:green"
